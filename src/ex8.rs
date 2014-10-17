@@ -25,7 +25,7 @@ pub fn twice<X>(x: X, f: |arg: X| -> X) -> X {
     f(x1)
 }
 
-trait Peano {
+pub trait Peano {
     fn succ(self) -> Self;
 }
 

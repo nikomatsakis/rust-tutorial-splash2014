@@ -27,7 +27,7 @@ pub fn main() {
         //                           exercise 1 below ^~~~~~
     }
 
-    for (i, elem_b) in v.move_iter().enumerate().filter(|&(j, _)| j % 2 == 0) {
+    for (i, elem_b) in v.into_iter().enumerate().filter(|&(j, _)| j % 2 == 0) {
         println!("took elem[{:u}] == {}", i, elem_b);
     }
 }
