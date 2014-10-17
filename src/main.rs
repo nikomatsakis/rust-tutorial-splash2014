@@ -16,4 +16,9 @@ pub fn main() {
     // run!(example20); infinite loop
     run!(example30);
     run!(example40);
+    run!(example50);
+    run!(example60);
+    run!(example70);
+    run!(example80);
+    run!(example90);
 }

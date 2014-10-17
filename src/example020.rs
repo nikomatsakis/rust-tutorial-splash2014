@@ -1,4 +1,4 @@
-// Example 2: Functions.
+// Example 20: Basic ownership.
 
 pub fn main() {
     let vec = vec![22, 44, 66];
@@ -38,7 +38,11 @@ Keyword     |         |                              *
         sum += v[i];
     }
 
-    sum
+    sum                      /*
+    ~~~                       *
+     |                        *
+ Last expression in block     *
+ is the "result" of the block */
 }
 
 // Exercise #1: Find and fix the bug.

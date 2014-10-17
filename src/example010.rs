@@ -1,4 +1,4 @@
-// Example 1: Vector.
+// Example 10: Vector.
 
 pub fn main() {
     let mut vec: Vec<int> = Vec::new();

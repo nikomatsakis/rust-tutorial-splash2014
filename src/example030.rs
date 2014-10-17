@@ -1,4 +1,4 @@
-// Example 3: Borrowing.
+// Example 30: Borrowing.
 
 pub fn main() {
     let vec = vec![22, 44, 66];

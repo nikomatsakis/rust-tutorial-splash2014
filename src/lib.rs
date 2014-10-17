@@ -2,3 +2,8 @@ pub mod example10;
 pub mod example20;
 pub mod example30;
 pub mod example40;
+pub mod example50;
+pub mod example60;
+pub mod example70;
+pub mod example80;
+pub mod example90;

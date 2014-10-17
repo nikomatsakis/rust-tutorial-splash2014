@@ -1,4 +1,4 @@
-// Example 4: Mutable borrowing.
+// Example 40: Mutable borrowing.
 
 use std::mem;
 //       ~~~
@@ -43,4 +43,4 @@ fn prefix_sum(v: &mut Vec<int>) -> int {
     sum
 }
 
-// Exercise #1: Try to have `sum` compute `prefix-sum`. What happens?
+// Exercise #1: Modify not to use `mem::replace`.
