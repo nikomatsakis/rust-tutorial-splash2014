@@ -1,12 +1,14 @@
-- Example 10: Basic vector.
-- Example 20: Basic ownership.
-- Example 30: Borrowing.
-- Example 40: Mutable borrowing.
-- Example 50: Iterators and for loops.
-- Example 60: Basic borrow checking (no mutation during iteration).
-- Example 70: Traits and generic programming.
-- Example 80: Structs and operator overloading
-- Example 90: 
+- Example 010: Basic vector.
+- Example 020: Basic ownership.
+- Example 030: Borrowing.
+- Example 040: Mutable borrowing.
+- Example 050: Iterators and for loops.
+- Example 060: Basic borrow checking (no mutation during iteration).
+- Example 070: Traits and generic programming.
+- Example 080: Structs and operator overloading
+- Example 090: Enums and matching.
+- Example 100: Memory allocation.
+- Example 110: 
 
 High-level themes I want to cover:
 
