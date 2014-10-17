@@ -1,5 +1,5 @@
 [package]
 
-name = "fsk-examples"
+name = "nmatsakis-examples"
 version = "0.0.1"
-authors = ["Felix S. Klock II <pnkfelix@pnkfx.org>"]
+authors = ["Nicholas D. Matsakis <nmatsakis@mozilla.com>"]
