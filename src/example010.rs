@@ -1,4 +1,4 @@
-// Example 10: Vector.
+// Theme: Rust basics.
 
 pub fn main() {
     let mut vec: Vec<int> = Vec::new();
@@ -32,6 +32,9 @@ pub fn main() {
        |                         |                  |           |          *
     Macro that takes a          Placeholders -------+           |          *
     format string.                                          Arguments      */
+
+    let string = format!("Vector has length `{}` and contents `{}`", vec.len(), vec);
+    println!("{}", string);
 
 } // <-- Here, `vec` goes out of scope, destructor will run and it will be freed.
 

@@ -1,4 +1,4 @@
-// Example 20: Basic ownership.
+// Theme: Basic ownership.
 
 pub fn main() {
     let vec = vec![22, 44, 66];

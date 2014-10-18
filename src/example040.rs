@@ -1,4 +1,4 @@
-// Example 40: Mutable borrowing.
+// Theme: Mutable borrowing.
 
 use std::mem;
 //       ~~~
@@ -10,7 +10,7 @@ pub fn main() {
     let mut vec = vec![22, 44, 66];
     //  ~~~
     //   |
-    //  Must be mutable, we'll modify it in place.
+    // Must be mutable, we'll modify it in place.
 
     let sum = prefix_sum(&mut vec);
     //                   ~~~~~~~~
@@ -43,4 +43,10 @@ fn prefix_sum(v: &mut Vec<int>) -> int {
     sum
 }
 
-// Exercise #1: Modify not to use `mem::replace`.
+// Exercise 1: Write quicksort. What difficulty do you encounter? What is the reason for
+// this? How can it be overcome?
+//
+// Hint i. Use mutable slices (`&mut [int]`).
+//
+// Hint ii. Look at the method `split_at_mut`:
+//          http://doc.rust-lang.org/std/slice/trait.MutableSlice.html#tymethod.split_at_mut

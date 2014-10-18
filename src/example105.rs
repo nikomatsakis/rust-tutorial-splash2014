@@ -1,41 +1,29 @@
-// Theme: Memory allocation and ownership.
+// Example 105: More on borrowing.
 
 use std::fmt;
 
 struct List<T> {
     data: T,
-    next: Option<Box<List<T>>>,      /*
-          ~~~~~~ ~~~                  *
-            |     |                   *
-            |  Pointer into the heap, *
-            |  referent is owned      *
-            |                         *
-      Some or None, see below         */
+    next: Option<Box<List<T>>>,
 }
 
-// Basic building block:
-//
-// enum Option<T> {
-//    None,
-//    Some(T)
-// }
-//
-// Compiler recognizes Option<Box<T>>, and other similar enums, and
-// represents them using a null pointer.
-//
-// Hence List<T> looks like this:
-//
-// +------+
-// | data |
-// | next | --Some--> +------+
-// +------+           | data |
-//                    | next | -None-.
-//                    +------+
-
 pub fn main() {
-    let mut x = List::new(44i);
+    let mut x = List::new(66i);
+    x = x.prepend(44);
     x = x.prepend(22);
-    x = x.append(66);
+
+    println!("Originally, x={}", x);
+
+    {
+        let data = x.data();
+        println!("data={} x={}", data, x);
+    }
+
+    {
+        let data = x.data_mut();
+        *data += 1;
+    }
+
     println!("x={}", x);
 }
 
@@ -54,8 +42,12 @@ impl<T> List<T> {
         }
     }
 
-    fn append(self, _value: T) -> List<T> {
-        self // FIXME
+    fn data(&self) -> &T {
+        &self.data
+    }
+
+    fn data_mut(&mut self) -> &mut T {
+        &mut self.data
     }
 }
 

@@ -1,4 +1,4 @@
-// Example 30: Borrowing.
+// Theme: Borrowing.
 
 pub fn main() {
     let vec = vec![22, 44, 66];
@@ -6,7 +6,7 @@ pub fn main() {
     let sum = sum(&vec);
     //            ~~~~
     //              |
-    //         Borrow the vector
+    //      Borrow the vector
 
     println!("The sum of `{}` is `{}`", vec, sum);
 }
@@ -26,4 +26,6 @@ fn sum(v: &Vec<int>) -> int {
     sum
 }
 
-// Exercise #1: Try to have `sum` compute `prefix-sum`. What happens?
+// Walthrough 1. Convert to use slices.
+
+// Exercise 2. Write a binary search function.

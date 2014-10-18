@@ -1,4 +1,4 @@
-// Example 80: Structs, operator overloading, and inherent methods.
+// Theme: Structs, operator overloading, and inherent methods.
 
 use std::ops::Add;
 
@@ -20,7 +20,7 @@ pub fn main() {
                 |                                *
             Struct literal                       */
     let right = Vec3 { x: 1.0, y: 0.0, z: 0.0 };
-    println!("`{}` x `{}` is `{}`", unit, right, unit.cross(&right));
+    println!("`{}` \u2a2f `{}` is `{}`", unit, right, unit.cross(&right));
     println!("`{}` + `{}` is `{}`", unit, right, unit + right);
 }
 
@@ -32,7 +32,11 @@ just "inherent" to `Vec3` *
 type                      */
 
     fn cross(&self, other: &Vec3) -> Vec3 {
-        *self + *other
+        Vec3 {
+            x: self.y * other.z - self.z * other.y,
+            y: self.z * other.x - self.x * other.z,
+            z: self.x * other.y - self.y * other.x,
+        }
     }
 
 }
@@ -56,4 +60,6 @@ impl Add<Vec3,Vec3> for Vec3 {
 
 // Exercise 1: Implement the `std::ops::Mul` trait to implement dot
 // product using the `*` operator. Or, if you prefer, make an inherent
-// method.
+// method `dot()` instead.
+//
+// Hint: dot-product is the sum-of-products (`(x*x)+(y*y)+(z*z)`).
