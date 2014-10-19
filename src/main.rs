@@ -14,10 +14,12 @@ macro_rules! run {
 pub fn main() {
     run!(example010);
     // run!(example020); infinite loop
+    run!(example025);
     run!(example030);
     run!(example040);
     run!(example050);
     run!(example060);
     run!(example070);
     run!(example080);
+    run!(example090);
 }

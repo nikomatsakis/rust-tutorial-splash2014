@@ -46,7 +46,7 @@ fn prefix_sum(v: &mut Vec<int>) -> int {
 // Exercise 1: Write quicksort. What difficulty do you encounter? What is the reason for
 // this? How can it be overcome?
 //
-// Hint i. Use mutable slices (`&mut [int]`).
+// Hint i. Use mutable slices (`&mut [int]`, `vec[mut]`).
 //
 // Hint ii. Look at the method `split_at_mut`:
 //          http://doc.rust-lang.org/std/slice/trait.MutableSlice.html#tymethod.split_at_mut

@@ -24,7 +24,7 @@ pub fn main() {
         *data += 1;
     }
 
-    println!("x={}", x);
+    println!("after increment, x={}", x);
 }
 
 impl<T> List<T> {
@@ -59,6 +59,7 @@ impl<T> List<T> {
         //      |  last the same time.
         //      |
         //   Explicitly declared scope
+
         &mut self.data
     }
 }
