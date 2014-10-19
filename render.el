@@ -5,6 +5,8 @@
 
   (insert "### Tutorial examples\n\n")
 
+  (insert "- [Directions for installing Rust, should you choose to do so.][d]\n")
+
   (let ((examples '(0 10 20 25 30 40 50
                       60 70 80 90 100)))
 
@@ -28,7 +30,7 @@
     (dolist (n examples)
       (insert (format "[html%d]: example%03d.rs.html\n" n n)))
 
-    ;; Geneate the actual links
+    ;; Generate the actual links
     (dolist (n examples)
       (switch-to-buffer (format "example%03d.rs" n))
       (let* ((text (buffer-string))
@@ -39,6 +41,7 @@
     )
 
   (switch-to-buffer "index.md")
+  (insert "[d]: http://doc.rust-lang.org/guide.html#installing-rust\n")
   (save-buffer)
   )
 
