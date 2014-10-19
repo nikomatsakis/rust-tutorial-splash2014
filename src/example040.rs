@@ -34,4 +34,4 @@ fn split_at<'a>(slice: &'a [int], mid: uint) -> (&'a [int], &'a [int]) { /*
 // `main()`. What happens? Does it make a difference where you insert
 // the call? Discuss.
 
-// Exercise 2. What heppens if you take out all the references `'a`?
+// Exercise 2. What happens if you take out all the references `'a`?
