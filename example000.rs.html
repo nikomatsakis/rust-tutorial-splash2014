@@ -3,20 +3,12 @@
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>example110.rs</title>
+    <title>example000.rs</title>
 <meta name="generator" content="emacs 24.3.1; htmlfontify 0.21" />
 <style type="text/css"><!-- 
 body { font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  color: #f5deb3;  background: #000000;  font-size: 12pt;  text-decoration: none; }
 span.default   { font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  color: #f5deb3;  background: #000000;  font-size: 12pt;  text-decoration: none; }
 span.default a { font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  color: #f5deb3;  background: #000000;  font-size: 12pt;  text-decoration: underline; }
-span.function-name   { color: #98fb98;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: none; }
-span.function-name a { color: #98fb98;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: underline; }
-span.variable-name   { color: #9acd32;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: none; }
-span.variable-name a { color: #9acd32;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: underline; }
-span.type   { color: nil;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: none; }
-span.type a { color: nil;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: underline; }
-span.keyword   { color: #ffffff;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: none; }
-span.keyword a { color: #ffffff;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: underline; }
 span.comment   { color: #00cd66;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: none; }
 span.comment a { color: #00cd66;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: underline; }
 span.comment-delimiter   { color: #00cd66;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: none; }
@@ -121,20 +113,30 @@ span.comment-delimiter a { color: #00cd66;  font-family: default;  font-stretch:
   </head>
   <body onload="stripe('index'); return true;">
 
-<pre><span class="comment-delimiter">// </span><span class="comment">Theme: Shared ownership and mutation.
+<pre><span class="comment-delimiter">/*</span><span class="comment">
+^~ First things first: Delimited comment syntax
+*/</span>
+
+<span class="comment-delimiter">// </span><span class="comment">... and many people prefer end-of-line terminated style.
+</span><span class="comment-delimiter">// </span><span class="comment">Like C++, we offer both.  (Though Rust's /* */ can nest.)
+</span>                                                            <span class="comment-delimiter">/*</span><span class="comment">
+^                 I will use slash-star style occasionally,  *
+|                 e.g. when I want to point out something in *
+|                 the left-most column...                    *
+^~ ... like this                                             *
+                                                             */</span>
+
+<span class="comment-delimiter">//   </span><span class="comment">The style is *solely* for expository purposes for today  ^
+</span><span class="comment-delimiter">//  </span><span class="comment">I have never seen any production code that actually puts  |
+</span><span class="comment-delimiter">//                   </span><span class="comment">stars on the right-hand-side like this ~~^
 </span>
-<span class="keyword">use</span> <span class="type">std::rc::Rc</span>;
-
-<span class="keyword">struct</span> <span class="type">Configuration</span> {
-    <span class="variable-name">installed_packages</span>: <span class="type">Vec</span>&lt;<span class="type">Rc</span>&lt;<span class="type">Package</span>&gt;&gt;
-}
-
-<span class="keyword">struct</span> <span class="type">Room</span> {
-    <span class="variable-name">players</span>: <span class="type">Vec</span>&lt;<span class="type">Rc</span>&lt;<span class="type">Player</span>&gt;&gt;,
-}
-
-<span class="keyword">pub</span> <span class="keyword">fn</span> <span class="function-name">main</span>() { }
-</pre>
+<span class="comment-delimiter">// </span><span class="comment">A quick word of warning: some comment forms are special.
+</span><span class="comment-delimiter">// </span><span class="comment">Namely `///`, `//!`, `/** */`, and `/*! */`; they turn
+</span><span class="comment-delimiter">// </span><span class="comment">into documentation blocks that try to attach themselves
+</span><span class="comment-delimiter">// </span><span class="comment">to some piece of code.  We won't be using these today.
+</span>
+<span class="comment-delimiter">// </span><span class="comment">Anyway, on with the show!
+</span></pre>
 
  </body>
 </html>
