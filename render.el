@@ -5,7 +5,8 @@
 
   (insert "### Tutorial examples\n\n")
 
-  (insert "- [Directions for installing Rust, should you choose to do so.][d]\n")
+  (insert "- [Directions for installing Rust][d], should you choose to do so.\n")
+  (insert "- [API docs][api] for Rust.\n")
 
   (let ((examples '(0 10 20 25 30 40 50
                       60 70 80 90 100)))
@@ -27,6 +28,7 @@
                       n n n)))
 
     ;; Generate the html links
+    (insert "\n")
     (dolist (n examples)
       (insert (format "[html%d]: example%03d.rs.html\n" n n)))
 
@@ -41,6 +43,7 @@
     )
 
   (switch-to-buffer "index.md")
+  (insert "[api]: http://doc.rust-lang.org/std/index.html\n")
   (insert "[d]: http://doc.rust-lang.org/guide.html#installing-rust\n")
   (save-buffer)
   )
