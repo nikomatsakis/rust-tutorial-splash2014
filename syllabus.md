@@ -1,32 +1,30 @@
-- Example 010: Basic vector.
-- Example 020: Basic ownership.
-- Example 030: Borrowing.
-- Example 040: Mutable borrowing.
-- Example 050: Iterators and for loops.
-- Example 060: Basic borrow checking (no mutation during iteration).
-- Example 070: Traits and generic programming.
-- Example 080: Structs and operator overloading.
-- Example 090: Enums and matching.
-- Example 100: Memory allocation.
-- Example 105: Advanced borrowing: scopes.
-- Example 110: Threads and messaging (triggers timeouts on playpen?)
-- Example 120: 
+- `src/example010.rs`: Rust basics.
+- `src/example020.rs`: Ownership.
+- `src/example025.rs`: Threading and messaging.
+- `src/example030.rs`: Borrowing.
+- `src/example040.rs`: Returning references and borrow scopes.
+- `src/example050.rs`: Mutable borrowing.
+- `src/example060.rs`: Traits and generic programming.
+- `src/example070.rs`: Structs, enums, and inherent methods.
+- `src/example080.rs`: Memory allocation and ownership.
+- `src/example090.rs`: Using iterators.
+- `src/example100.rs`: Theme: Defining iterators; named borrow scopes.
 
 High-level themes I want to cover:
 
-- [x] Ownership
-- [x] Borrowing (Iterator invalidation)
+- [ ] Ownership
+- [ ] Borrowing (Iterator invalidation)
 - [ ] Borrowing (Returning pointers into a struct?)
 - [ ] Borrowing (Mutable references)
 - [ ] Allocation
 - [ ] Aliasing and mutation
 - [ ] Threads and messaging
 - [ ] Rc, Cell, RefCell
-- [x] Structs
-- [x] Enums
-- [x] Traits
-- [x] Methods
+- [ ] Structs
+- [ ] Enums
+- [ ] Traits
+- [ ] Methods
 - [ ] Iterators
-- [x] Operator overloading
+- [ ] Operator overloading
 - [ ] Modules
 - [ ] Cargo

@@ -1,7 +1,5 @@
 // Theme: Borrowing.
 
-use std::collections::HashMap;
-
 pub fn main() {
     let vec = vec![22, 44, 66];
 
