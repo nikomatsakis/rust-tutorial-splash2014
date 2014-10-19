@@ -1,119 +1,120 @@
-// Theme: Structs, enums, and inherent methods.
+// Theme: Traits and generic programming.
 
-const PI: f64 = 3.14159;
+trait Numeric {                            /*
+      ~~~~~~~                               *
+         |                                  *
+      Defines an interface called "Numeric" */
 
-#[deriving(Show)]            /*
-~ ~~~~~~~~ ~~~~               *
-|     |     |                 *
-|     |    Trait for use with *
-|     |    format strings     *
-|     |                       *
-| Automatically generate an   *
-| impl for common, repetitive *
-| traits                      *
-|                             *
-Annotation on following item  */
-struct Point {
-    x: f64,
-    y: f64,
-}
+    fn zero() -> Self;                     /*
+       ~~~~~~    ~~~~                       *
+         |        |                         *
+         |  The type for which the          *
+         |  interface is defined            *
+         |                                  *
+       Free-standing function               */
 
-#[deriving(Show)]
-enum Shape {     /*
-~~~~              *
-  |               *
-Enumerated set of *
-possible variants */
-
-    Circle(Point, f64),     /*
-    ~~~~~~ ~~~~~~~~~~        *
-      |        |             *
-      |    Variant arguments *
-      |                      *
-    Variant name             */
-
-    Rectangle(/* upper-left */ Point,
-              /* lower-right */ Point)
+    fn add(&self, other: &Self) -> Self;   /*
+       ~~~ ~~~~~  ~~~~~~~~~~~~              *
+        |   |         |                     *
+        |   |    Argument of same type      *
+        |   |    as the receiver            *
+        |   |                               *
+        |  Receiver is a reference          *
+        |                                   *
+      Method in the interface               */
 }
 
 pub fn main() {
-    let origin = Point { x: 0.0, y: 0.0, };
-    //           ~~~~~   ~~~~~~
-    //             |        |
-    //      Name of struct  |
-    //                      |
-    //                Value of `x` field (!)
+    let ints: Vec<int> = vec![22, 44, 66];
+    println!("Sum of `{}` is `{}`", ints, sum(&ints));
 
-    let unit = Point { x: 1.0, y: 1.0, };
-
-    let mut shape = Circle(origin, 22.0);
-    println!("Area of `{}` is `{}`", shape, shape.area());
-
-    shape.enlarge(3.5);
-    println!("Area of `{}` is `{}` (enlarged)", shape, shape.area());
-
-    shape = Rectangle(origin, unit);
-    println!("Area of `{}` is `{}`", shape, shape.area());
+    let f64s: Vec<f64> = vec![0.5, 1.5, 2.5];
+    println!("Sum of `{}` is `{}`", ints, sum(&f64s));
 }
 
-impl Shape {
-    fn area(&self) -> f64 {
-        match *self {   /*
-        ~~~~~            *
-          |              *
-        Identify variant */
+fn sum<N>(vec: &Vec<N>) -> N               /*
+   ~~~~~~                                   *
+     |                                      *
+   Generic function over some type `N`      */
 
-            Circle(_, radius) => 2.0 * PI * radius,   /*
-            ~~~~~~ ~  ~~~~~~     ~~~~~~~~~~~~~~~~~     *
-              |    |    |               |              *
-              |    |    |        Result in this case   *
-              |    |    |                              *
-              |    |  Extract the radius               *
-              |    |  into a new variable              *
-              |    |                                   *
-              | Ignore the origin                      *
-              |                                        *
-            In the event this is a circle...           */
+    where N : Numeric                      /*
+    ~~~~~~~~~~~~~~~~~                       *
+           |                                *
+    Type N must implement                   *
+    the trait Numeric                       */
 
-            Rectangle(ref ul, ref lr) => {            /*
-                      ~~~                              *
-                       |                               *
-                 Create reference into the value       *
-                                                       *
-        +--------------+                               *
-        | self: &Shape | -----> +------------------+   *
-        |  ul: &Point  | ---+   | [Rectangle]      |   *
-        |  lr: &Point  | -+ |-> | Point { x: f64   |   *
-        +--------------+  |     |         y: f64 } |   *
-                          |---> | Point { x: f64   |   *
-                                |         y: f64 } |   *
-                                +------------------+   */
+{
+    let mut sum: N = Numeric::zero();      /*
+                     ~~~~~~~~~~~~~          *
+                          |                 *
+            Invoke a suitable version of    *
+            zero() to produce a result of   *
+            type `N`                        */
 
-                (lr.x - ul.x).abs() *
-                 (lr.y - ul.y).abs()                  /*
-                  ~~~~ Field access: the `.` operator  *
-                       transparently passes through    *
-                       references.                     */
-             }
-        }
+    for elem in vec.iter() {               /*
+        ~~~~    ~~~~~~~~                    *
+          |        |                        *
+          |   Iterator over references      *
+          |   to the elements (`&N`)        *
+          |                                 *
+        Each element will have              *
+        type `&N`                           */
+
+        let intermediate = sum.add(elem);  /*
+                           ~~~~~~~~~~~~~    *
+                               |            *
+          Invoke a suitable version of      *
+          `add` to add two instances of `N` */
+
+        sum = intermediate;
     }
 
-    fn enlarge(&mut self, scale: f64) {
-        match *self {
-            Circle(_, ref mut radius) => *radius *= scale,
-            //        ~~~~~~~            ~~~~~~~
-            //           |                  |
-            //           |        Modify `radius` in place
-            //           |
-            //    Mutable reference into the structure
+    sum
+}
 
-            Rectangle(ref _ul, ref mut _lr) => {
-                fail!("Math is hard")
-            }
-        }
+impl Numeric for int {              /*
+~~~~ ~~~~~~~     ~~~                 *
+ |      |         |                  *
+ |      |      The type for which    *
+ |      |      the trait is impl'd.  *
+ |      |                            *
+ |   The trait being implemented.    *
+ |                                   *
+Declares that we plan to implement   *
+a trait for some type.               */
+
+    fn zero() -> int { 0 }          /*
+                 ~~~                 *
+                  |                  *
+        Return type of `Self`,       *
+        tailored to this impl.       */
+
+    fn add(&self, other: &int) -> int {
+        *self + *other
     }
 }
 
-// Exercise 1. Remove one of the variants above. What happens?
+impl Numeric for f64 {
+    fn zero() -> f64 { 0.0 }         /*
+                 ~~~                  *
+                  |                   *
+        Return type of `Self`,        *
+        tailored to _this_ impl.      */
 
-// Exercise 2. Complete the `Rectangle` case of `enlarge`.
+    fn add(&self, other: &f64) -> f64 {
+        *self + *other
+    }
+}
+
+// Exercise 1. Add another impl for the type `u32`.
+// Check that it works.
+
+// Exercise 2. Why did we use an intermediate variable to store the
+// result of adding each element and the previous sum? (Hint: it has
+// to do with the borrowing rules.)
+
+// Exercise 3. How might you modify the trait to avoid this
+// intermediate?
+//
+// Hint i. `&mut`
+// Hint ii. `Copy`

@@ -1,30 +1,42 @@
-// Theme: Borrow scopes.
+// Theme: Memory allocation and ownership.
 
 use std::fmt;
 
 struct List<T> {
     data: T,
-    next: Option<Box<List<T>>>,
+    next: Option<Box<List<T>>>,      /*
+          ~~~~~~ ~~~                  *
+            |     |                   *
+            |  Pointer into the heap, *
+            |  referent is owned      *
+            |                         *
+      Some or None, see below         */
 }
 
+// Basic building block:
+//
+// enum Option<T> {
+//    None,
+//    Some(T)
+// }
+//
+// Compiler recognizes Option<Box<T>>, and other similar enums, and
+// represents them using a null pointer.
+//
+// Hence List<T> looks like this:
+//
+// +------+
+// | data |
+// | next | --Some--> +------+
+// +------+           | data |
+//                    | next | -None-.
+//                    +------+
+
 pub fn main() {
-    let mut x = List::new(66i);
-    x = x.prepend(44);
+    let mut x = List::new(44i);
     x = x.prepend(22);
-
-    println!("Originally, x={}", x);
-
-    {
-        let data = x.data();
-        println!("data={} x={}", data, x);
-    }
-
-    {
-        let data = x.data_mut();
-        *data += 1;
-    }
-
-    println!("after increment, x={}", x);
+    x = x.append(66);
+    println!("x={}", x);
 }
 
 impl<T> List<T> {
@@ -42,25 +54,16 @@ impl<T> List<T> {
         }
     }
 
-    fn data(&self) -> &T {
-        //  ~~~~~     ~~
-        //    |       |
-        //  Implicit "sublease" -- given one
-        //  borrowed value, return another that
-        //  lasts for same time.
+    fn append(self, value: T) -> List<T> {
+        let next = match self.next {
+            None => List::new(value),
+            Some(list) => list.append(value),
+        };
 
-        &self.data
-    }
-
-    fn data_mut<'a>(&'a mut self) -> &'a mut T {
-        //     ~~~~  ~~               ~~
-        //      |    |                |
-        //      |  Link input/output scopes, loans
-        //      |  last the same time.
-        //      |
-        //   Explicitly declared scope
-
-        &mut self.data
+        List {
+            data: self.data,
+            next: Some(box next)
+        }
     }
 }
 
@@ -83,8 +86,11 @@ impl<T:fmt::Show> fmt::Show for List<T> {
     }
 }
 
-// Discuss 1: What happens when we remove the "extraneous" blocks?
+// Exercise 1. Rewrite `append` to avoid reallocating the entire
+// vector.
 
-// Discuss 2: What happens when we move the `println` inside of the
-// `data_mut` block? Why?  What about if we try to call `data_mut`
-// again.
+// Exercise 2. The methods `prepend` and `append` take ownership of
+// the list. What is the downside of this? Can you rewrite `prepend`
+// and `append` to take `&mut self` instead?
+//
+// Hint i. Consider `std::mem::swap`.

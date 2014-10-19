@@ -1,52 +1,23 @@
-// Theme: Mutable borrowing.
+// Theme: Returning references and borrow scopes.
 
-use std::mem;
-//       ~~~
-//        |
-//  Import mem module into scope.
-//  http://doc.rust-lang.org/std/mem/
+use std::collections::HashMap;
 
 pub fn main() {
-    let mut vec = vec![22, 44, 66];
-    //  ~~~
-    //   |
-    // Must be mutable, we'll modify it in place.
-
-    let sum = prefix_sum(&mut vec);
-    //                   ~~~~~~~~
-    //                      |
-    //          Borrow the vector *mutably*
-
-    println!("The prefix sum is `{}`, `{}`", vec, sum);
+    let mut vec = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let (left, right) = split_at(vec[], 5);
+    println("`{}` split at 5 yields `{}` and `{}`",
+            vec, left, right);
 }
 
-fn prefix_sum(v: &mut Vec<int>) -> int {
-    //        ~~~~~~~~~~~~~~~~
-    //               |
-    // Request a mutably borrowed vector
+fn split_at(slice: &[int], mid: uint) -> (&[int], &[int]) {
+    //             ~~~~~~                 ~~~~~~  ~~~~~~
+    //               |                      |       |
+    //     Given a borrowed slice...        |       |
+    //                             ...return back two subslices.
 
-    let (mut i, c, mut sum) = (0, v.len(), 0);
-
-    while i < c {
-        let value = mem::replace(&mut v[i], sum);
-        //          ~~~~~~~~~~~~ ~~~~~~~~~
-        //               |           |
-        //               |    Borrow individual vector element.
-        //               |
-        // Helper function to overwrite a memory location
-        // and return old value.
-
-        sum += value;
-        i += 1;
-    }
-
-    sum
+    (slice[..mid], slice[mid..])
 }
 
-// Exercise 1: Write quicksort. What difficulty do you encounter? What is the reason for
-// this? How can it be overcome?
-//
-// Hint i. Use mutable slices (`&mut [int]`, `vec[mut]`).
-//
-// Hint ii. Look at the method `split_at_mut`:
-//          http://doc.rust-lang.org/std/slice/trait.MutableSlice.html#tymethod.split_at_mut
+// Exercise 1. Try inserting various calls to `vec.push()` in
+// `main()`. What happens? Does it make a difference where you insert
+// the call? Discuss.
