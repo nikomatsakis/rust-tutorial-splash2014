@@ -1,15 +1,15 @@
 // Theme: Ownership.
 
 pub fn main() {
-    let vec = vec![22, 44, 66];
-    //        ~~~~
-    //         |
-    // Another handy macro.
+    let vec = vec![22, 44, 66]; /*
+              ~~~~               *
+               |                 *
+       Another handy macro.      */
 
-    let sum = sum(vec);
-    //        ~~~~~~~~
-    //          |
-    //        Function call (!)
+    let sum = sum(vec);         /*
+              ~~~~~~~~           *
+                |                *
+              Function call (!)  */
 
     println!("The sum of the vector is `{}`", sum);
 }
@@ -24,16 +24,16 @@ Keyword     |         |                              *
                    Return type                       *
                   (Default: "nil" ())                */
 
-    let (mut i, c, mut sum) = (0, v.len(), 0);
-    //  ~~~~~~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~
-    //         |                     |
-    //         |             Tuple of type (int, int, int)
-    //  Pattern matching
+    let (mut i, c, mut sum) = (0, v.len(), 0); /*
+        ~~~~~~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~   *
+               |                     |          *
+               |             Tuple of type      *
+        Pattern matching     (int, int, int)    */
 
-    while i < c {
-    //    ~~~~~
-    //      |
-    //   Look ma, no parens
+    while i < c {           /*
+          ~~~~~              *
+            |                *
+         Look ma, no parens  */
 
         sum += v[i];
     }

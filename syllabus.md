@@ -10,21 +10,22 @@
 - `src/example090.rs`: Using iterators.
 - `src/example100.rs`: Theme: Defining iterators; named borrow scopes.
 
+
 High-level themes I want to cover:
 
-- [ ] Ownership
-- [ ] Borrowing (Iterator invalidation)
-- [ ] Borrowing (Returning pointers into a struct?)
-- [ ] Borrowing (Mutable references)
-- [ ] Allocation
+- [x] Ownership
+- [x] Borrowing (Iterator invalidation)
+- [x] Borrowing (Returning references)
+- [x] Borrowing (Mutable references)
+- [x] Allocation
 - [ ] Aliasing and mutation
-- [ ] Threads and messaging
+- [x] Threads and messaging
 - [ ] Rc, Cell, RefCell
-- [ ] Structs
-- [ ] Enums
-- [ ] Traits
-- [ ] Methods
-- [ ] Iterators
+- [x] Structs
+- [x] Enums
+- [x] Traits
+- [x] Methods
+- [x] Iterators
 - [ ] Operator overloading
-- [ ] Modules
+- [x] Modules
 - [ ] Cargo

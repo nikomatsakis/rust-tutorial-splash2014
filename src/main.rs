@@ -23,4 +23,5 @@ pub fn main() {
     run!(example080);
     run!(example090);
     run!(example100);
+    run!(example110);
 }
