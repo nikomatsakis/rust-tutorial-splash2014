@@ -13,24 +13,26 @@ struct List<T> {
       Some or None, see below         */
 }
 
-// Basic building block:
-//
-// enum Option<T> {
-//    None,
-//    Some(T)
-// }
-//
-// Compiler recognizes Option<Box<T>>, and other similar enums, and
-// represents them using a null pointer.
-//
-// Hence List<T> looks like this:
-//
-// +------+
-// | data |
-// | next | --Some--> +------+
-// +------+           | data |
-//                    | next | -None-.
-//                    +------+
+/*
+ * Basic building block:
+ *
+ * enum Option<T> {
+ *    None,
+ *    Some(T)
+ * }
+ *
+ * Compiler recognizes Option<Box<T>>, and other similar enums, and
+ * represents them using a null pointer.
+ *
+ * Hence List<T> looks like this:
+ *
+ * +------+
+ * | data |
+ * | next | --Some--> +------+
+ * +------+           | data |
+ *                    | next | -None-.
+ *                    +------+
+ */
 
 pub fn main() {
     let mut x = List::new(44i);

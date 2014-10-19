@@ -16,16 +16,16 @@ pub fn main() {
              vec, left, right);
 }
 
-fn split_at<'a>(slice: &'a [int], mid: uint) -> (&'a [int], &'a [int]) {
-    //     ~~~~        ~~~                       ~~~        ~~~
-    //      |           |                         |          |
-    //    Scope         |                         |          |
-    //                  |                         |          |
-    //        Given a slice borrowed              |          |
-    //        for scope 'a                   Produce two slices for
-    //                                       scope 'a
-    //
-    // Think of them as "subleases".
+fn split_at<'a>(slice: &'a [int], mid: uint) -> (&'a [int], &'a [int]) { /*
+           ~~~~        ~~~                       ~~~        ~~~           *
+            |           |                         |          |            *
+          Scope         |                         |          |            *
+                        |                         |          |            *
+              Given a slice borrowed              |          |            *
+              for scope 'a                   Produce two slices for       *
+                                             scope 'a                     *
+                                                                          *
+       Think of them as "subleases".                                      */
 
     (slice[..mid], slice[mid..])
 }

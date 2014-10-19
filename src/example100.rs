@@ -7,22 +7,22 @@ struct List<T> {
 }
 
 #[deriving(Show)]
-struct ListIterator<'a, T:'a> {
-    //              ~~  ~~~~
-    //              |    |
-    //              |   Type of things in the list.
-    //              |
-    //         Scope of references within the struct.
-    //
-    // The T:'a indicates that the type T must
-    // "outlive" the scope 'a (meaning: be valid for at
-    // least the scope 'a). Required so that reference
-    // cannot outlive referent in type `&'a List<T>`.
+struct ListIterator<'a, T:'a> {                        /*
+                    ~~  ~~~~                            *
+                    |    |                              *
+                    |   Type of things in the list.     *
+                    |                                   *
+               Scope of references within the struct.   *
+                                                        *
+       The T:'a indicates that the type T must          *
+       "outlive" the scope 'a (meaning: be valid for at *
+       least the scope 'a). Required so that reference  *
+       cannot outlive referent in type `&'a List<T>`.   */
 
-    list: &'a List<T>,
-    //    ~~~~~~~~~~~
-    //         |
-    // List borrowed for the scope 'a.
+    list: &'a List<T>,                 /*
+          ~~~~~~~~~~~                   *
+               |                        *
+       List borrowed for the scope 'a.  */
 }
 
 pub fn main() {
@@ -51,11 +51,11 @@ impl<T> List<T> {
         }
     }
 
-    fn iter(&self) -> ListIterator<T> {
-        //  ~~~~~                 ~~~
-        //    |                    |
-        //  Default is to use lifetime of
-        //  the `self` reference.
+    fn iter(&self) -> ListIterator<T> {   /*
+            ~~~~~                 ~~~      *
+              |                    |       *
+            Default is to use lifetime of  *
+            the `self` reference.          */
 
         ListIterator {
             list: self
@@ -63,11 +63,11 @@ impl<T> List<T> {
     }
 }
 
-impl<'a,T> Iterator<&'a T> for ListIterator<'a,T> {
-    //              ~~~~~
-    //                |
-    //         Iterator yields up
-    //         references with scope 'a.
+impl<'a,T> Iterator<&'a T> for ListIterator<'a,T> { /*
+                    ~~~~~                            *
+                      |                              *
+               Iterator yields up                    *
+               references with scope 'a.             */
 
     fn next(&mut self) -> Option<&'a T> {
         None // Um...

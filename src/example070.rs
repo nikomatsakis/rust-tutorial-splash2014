@@ -37,12 +37,12 @@ possible variants */
 }
 
 pub fn main() {
-    let origin = Point { x: 0.0, y: 0.0, };
-    //           ~~~~~   ~~~~~~
-    //             |        |
-    //      Name of struct  |
-    //                      |
-    //                Value of `x` field (!)
+    let origin = Point { x: 0.0, y: 0.0, };   /*
+                 ~~~~~   ~~~~~~                *
+                   |        |                  *
+            Name of struct  |                  *
+                            |                  *
+                      Value of `x` field (!)   */
 
     let unit = Point { x: 1.0, y: 1.0, };
 
@@ -100,12 +100,12 @@ impl Shape {
 
     fn enlarge(&mut self, scale: f64) {
         match *self {
-            Circle(_, ref mut radius) => *radius *= scale,
-            //        ~~~~~~~            ~~~~~~~
-            //           |                  |
-            //           |        Modify `radius` in place
-            //           |
-            //    Mutable reference into the structure
+            Circle(_, ref mut radius) => *radius *= scale,  /*
+                      ~~~~~~~            ~~~~~~~             *
+                         |                  |                *
+                         |        Modify `radius` in place   *
+                         |                                   *
+                  Mutable reference into the structure       */
 
             Rectangle(ref _ul, ref mut _lr) => {
                 fail!("Math is hard")
