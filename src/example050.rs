@@ -10,8 +10,8 @@ trait Numeric {                            /*
          |                                  *
        Free-standing function               */
 
-    fn add(&self, other: &Self) -> Self;     /*
-       ~~~ ~~~~~  ~~~~~~~~~~~~                *
+    fn add(&self, other: &Self) -> Self;   /*
+       ~~~ ~~~~~  ~~~~~~~~~~~~              *
         |   |         |                     *
         |   |    Argument of same type      *
         |   |    as the receiver            *
@@ -29,38 +29,39 @@ pub fn main() {
     println!("Sum of `{}` is `{}`", ints, sum(&f64s));
 }
 
-fn sum<N>(vec: &Vec<N>) -> N           /*
-   ~~~~~~                               *
-     |                                  *
-   Generic function over some type `N`  */
+fn sum<N>(vec: &Vec<N>) -> N               /*
+   ~~~~~~                                   *
+     |                                      *
+   Generic function over some type `N`      */
 
-    where N : Numeric                  /*
-    ~~~~~~~~~~~~~~~~~                   *
-           |                            *
-    Type N must implement               *
-    the trait Numeric                   */
+    where N : Numeric                      /*
+    ~~~~~~~~~~~~~~~~~                       *
+           |                                *
+    Type N must implement                   *
+    the trait Numeric                       */
 
 {
-    let mut sum: N = Numeric::zero();          /*
-                     ~~~~~~~~~~~~~              *
-                          |                     *
-            Invoke a suitable version of zero() *
-            to produce a result of type `N`     */
+    let mut sum: N = Numeric::zero();      /*
+                     ~~~~~~~~~~~~~          *
+                          |                 *
+            Invoke a suitable version of    *
+            zero() to produce a result of   *
+            type `N`                        */
 
-    for elem in vec.iter() {          /*
-        ~~~~    ~~~~~~~~               *
-          |        |                   *
-          |   Iterator over references *
-          |   to the elements (`&N`)   *
-          |                            *
-        Each element will have         *
-        type `&N`                      */
+    for elem in vec.iter() {               /*
+        ~~~~    ~~~~~~~~                    *
+          |        |                        *
+          |   Iterator over references      *
+          |   to the elements (`&N`)        *
+          |                                 *
+        Each element will have              *
+        type `&N`                           */
 
-        let intermediate = sum.add(elem);          /*
-                           ~~~~~~~~~~~~~            *
-                               |                    *
-                 Invoke a suitable version of `add` *
-                 to add two instances of `N`        */
+        let intermediate = sum.add(elem);  /*
+                           ~~~~~~~~~~~~~    *
+                               |            *
+          Invoke a suitable version of      *
+          `add` to add two instances of `N` */
 
         sum = intermediate;
     }
@@ -79,11 +80,11 @@ impl Numeric for int {              /*
 Declares that we plan to implement   *
 a trait for some type.               */
 
-    fn zero() -> int { 0 }     /*
-                 ~~~            *
-                  |             *
-        Return type of `Self`,  *
-        tailored to this impl.  */
+    fn zero() -> int { 0 }          /*
+                 ~~~                 *
+                  |                  *
+        Return type of `Self`,       *
+        tailored to this impl.       */
 
     fn add(&self, other: &int) -> int {
         *self + *other
@@ -91,11 +92,11 @@ a trait for some type.               */
 }
 
 impl Numeric for f64 {
-    fn zero() -> f64 { 0.0 }    /*
-                 ~~~             *
-                  |              *
-        Return type of `Self`,   *
-        tailored to _this_ impl. */
+    fn zero() -> f64 { 0.0 }         /*
+                 ~~~                  *
+                  |                   *
+        Return type of `Self`,        *
+        tailored to _this_ impl.      */
 
     fn add(&self, other: &f64) -> f64 {
         *self + *other
