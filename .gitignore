@@ -1,3 +1,6 @@
 *~
 /Cargo.lock
 /target
+index.md
+src/*.html
+html

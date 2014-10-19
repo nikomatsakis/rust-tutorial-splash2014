@@ -10,5 +10,4 @@ struct Room {
     players: Vec<Rc<Player>>,
 }
 
-
 pub fn main() { }

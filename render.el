@@ -35,5 +35,10 @@
              (text (replace-regexp-in-string "/\\*[^/]*\\*/" "" text)))
         (switch-to-buffer "index.md")
         (insert (format "[play%d]: http://play.rust-lang.org/?code=%s\n"
-                        n text))))
-   ))
+                        n (url-hexify-string text)))))
+    )
+
+  (switch-to-buffer "index.md")
+  (save-buffer)
+  )
+
