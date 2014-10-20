@@ -49,4 +49,3 @@ fn factorial(n: uint) -> uint {
     if n == 0 { 1 } else { n * factorial(n - 1) }
 }
 
-// Exercise 1. Try to modify

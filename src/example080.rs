@@ -30,7 +30,7 @@ struct List<T> {
  * | data |
  * | next | --Some--> +------+
  * +------+           | data |
- *                    | next | -None-.
+ *                    | next | -None- (null)
  *                    +------+
  */
 

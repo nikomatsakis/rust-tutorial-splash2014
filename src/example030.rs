@@ -26,6 +26,10 @@ fn sum(v: &Vec<int>) -> int {    /*
     sum
 }
 
+fn binary_search(haystack: &[int], needle: int) -> bool {
+    false // FIXME
+}
+
 // Walthrough 1. Convert to use slices.
 
 // Exercise 2. Write a binary search function.
