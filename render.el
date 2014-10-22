@@ -8,8 +8,7 @@
   (insert "- [Directions for installing Rust][d], should you choose to do so.\n")
   (insert "- [API docs][api] for Rust.\n")
 
-  (let ((examples '(0 10 20 25 30 40 50
-                      60 70 80 90 100)))
+  (let ((examples '(0 10 20 30 40 50 60 70 80)))
 
     ;; Generate the html files.
     (dolist (n examples)
