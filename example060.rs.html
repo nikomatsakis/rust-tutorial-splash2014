@@ -9,12 +9,12 @@
 body { font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  color: #f5deb3;  background: #000000;  font-size: 12pt;  text-decoration: none; }
 span.default   { font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  color: #f5deb3;  background: #000000;  font-size: 12pt;  text-decoration: none; }
 span.default a { font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  color: #f5deb3;  background: #000000;  font-size: 12pt;  text-decoration: underline; }
+span.variable-name   { color: #9acd32;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: none; }
+span.variable-name a { color: #9acd32;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: underline; }
 span.string   { color: #bdb76b;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: none; }
 span.string a { color: #bdb76b;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: underline; }
 span.preprocessor   { color: #b0c4de;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: none; }
 span.preprocessor a { color: #b0c4de;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: underline; }
-span.variable-name   { color: #9acd32;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: none; }
-span.variable-name a { color: #9acd32;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: underline; }
 span.function-name   { color: #98fb98;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: none; }
 span.function-name a { color: #98fb98;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: underline; }
 span.type   { color: nil;  font-family: default;  font-stretch: normal;  font-weight: 500;  font-style: normal;  background: #000000;  font-size: 12pt;  text-decoration: none; }
@@ -125,127 +125,58 @@ span.comment-delimiter a { color: #00cd66;  font-family: default;  font-stretch:
   </head>
   <body onload="stripe('index'); return true;">
 
-<pre><span class="comment-delimiter">// </span><span class="comment">Theme: Traits and generic programming.
+<pre><span class="comment-delimiter">// </span><span class="comment">Theme: Threading and messaging.
 </span>
-<span class="keyword">trait</span> <span class="type">Numeric</span> {                            <span class="comment-delimiter">/*</span><span class="comment">
-      ~~~~~~~                               *
-         |                                  *
-      Defines an interface called &quot;Numeric&quot; */</span>
-
-    <span class="keyword">fn</span> <span class="function-name">zero</span>() -&gt; <span class="type">Self</span>;                     <span class="comment-delimiter">/*</span><span class="comment">
-       ~~~~~~    ~~~~                       *
-         |        |                         *
-         |  The type for which the          *
-         |  interface is defined            *
-         |                                  *
-       Free-standing function               */</span>
-
-    <span class="keyword">fn</span> <span class="function-name">add</span>(&amp;<span class="keyword">self</span>, <span class="variable-name">other</span>: &amp;<span class="type">Self</span>) -&gt; <span class="type">Self</span>;   <span class="comment-delimiter">/*</span><span class="comment">
-       ~~~ ~~~~~  ~~~~~~~~~~~~              *
-        |   |         |                     *
-        |   |    Argument of same type      *
-        |   |    as the receiver            *
-        |   |                               *
-        |  Receiver is a reference          *
-        |                                   *
-      Method in the interface               */</span>
-}
+<span class="keyword">use</span> <span class="type">std::</span>comm;
+<span class="keyword">use</span> <span class="type">std::</span>task;
 
 <span class="keyword">pub</span> <span class="keyword">fn</span> <span class="function-name">main</span>() {
-    <span class="keyword">let</span> <span class="variable-name">ints</span>: <span class="type">Vec</span>&lt;<span class="type">int</span>&gt; = vec![22, 44, 66];
-    <span class="preprocessor">println!</span>(<span class="string">&quot;Sum of `{}` is `{}`&quot;</span>, ints, sum(&amp;ints));
+    <span class="keyword">let</span> (tx, rx) = <span class="type">comm::</span>channel(); <span class="comment-delimiter">/*</span><span class="comment">
+         ~~  ~~    ~~~~~~~~~~~~~     *
+         |   |          |            *
+         |   |    Returns a pair of  *
+         |   |    endpoints          *
+         |   |                       *
+         |  Receive messages here    *
+         |                           *
+        Send messages here           */</span>
 
-    <span class="keyword">let</span> <span class="variable-name">f64s</span>: <span class="type">Vec</span>&lt;<span class="type">f64</span>&gt; = vec![0.5, 1.5, 2.5];
-    <span class="preprocessor">println!</span>(<span class="string">&quot;Sum of `{}` is `{}`&quot;</span>, ints, sum(&amp;f64s));
+    <span class="type">task::</span>spawn(<span class="keyword">proc</span>() {            <span class="comment-delimiter">/*</span><span class="comment">
+    ~~~~~~~~~~~ ~~~~                 *
+        |        |                   *
+        |     Thread body.           *
+        |     Takes ownership of     *
+        |     things it uses         *
+        |     (e.g. `tx`).           *
+        |                            *
+    Starts a new thread.             */</span>
+
+        <span class="keyword">let</span> <span class="keyword">mut</span> factorials = <span class="type">Vec::</span>new();
+        <span class="keyword">let</span> <span class="keyword">mut</span> i = 0;
+        <span class="keyword">loop</span> {
+            <span class="keyword">let</span> f = factorial(i);
+            <span class="keyword">if</span> f &gt; 128 {
+                <span class="keyword">break</span>;
+            }
+
+            factorials.push(f);
+            i += 1;
+        }
+        tx.send(factorials);
+    });
+
+    <span class="preprocessor">println!</span>(<span class="string">&quot;... do something here ...&quot;</span>);
+
+    <span class="keyword">let</span> f = rx.recv_opt().unwrap();
+
+    <span class="preprocessor">println!</span>(<span class="string">&quot;factorials up to 128 are `{}`&quot;</span>, f);
 }
 
-<span class="keyword">fn</span> <span class="function-name">sum</span>&lt;<span class="type">N</span>&gt;(<span class="variable-name">vec</span>: &amp;<span class="type">Vec</span>&lt;<span class="type">N</span>&gt;) -&gt; <span class="type">N</span>               <span class="comment-delimiter">/*</span><span class="comment">
-   ~~~~~~                                   *
-     |                                      *
-   Generic function over some type `N`      */</span>
-
-    where <span class="type">N</span> : <span class="type">Numeric</span>                      <span class="comment-delimiter">/*</span><span class="comment">
-    ~~~~~~~~~~~~~~~~~                       *
-           |                                *
-    Type N must implement                   *
-    the trait Numeric                       */</span>
-
-{
-    <span class="keyword">let</span> <span class="keyword">mut</span> <span class="variable-name">sum</span>: <span class="type">N</span> = <span class="type">Numeric::</span>zero();      <span class="comment-delimiter">/*</span><span class="comment">
-                     ~~~~~~~~~~~~~          *
-                          |                 *
-            Invoke a suitable version of    *
-            zero() to produce a result of   *
-            type `N`                        */</span>
-
-    <span class="keyword">for</span> elem <span class="keyword">in</span> vec.iter() {               <span class="comment-delimiter">/*</span><span class="comment">
-        ~~~~    ~~~~~~~~                    *
-          |        |                        *
-          |   Iterator over references      *
-          |   to the elements (`&amp;N`)        *
-          |                                 *
-        Each element will have              *
-        type `&amp;N`                           */</span>
-
-        <span class="keyword">let</span> intermediate = sum.add(elem);  <span class="comment-delimiter">/*</span><span class="comment">
-                           ~~~~~~~~~~~~~    *
-                               |            *
-          Invoke a suitable version of</span><span class="comment"> </span><span class="comment">     *
-          `add` to add two instances of `N` */</span>
-
-        sum = intermediate;
-    }
-
-    sum
+<span class="keyword">fn</span> <span class="function-name">factorial</span>(<span class="variable-name">n</span>: <span class="type">uint</span>) -&gt; <span class="type">uint</span> {
+    <span class="keyword">if</span> n == 0 { 1 } <span class="keyword">else</span> { n * factorial(n - 1) }
 }
 
-<span class="keyword">impl</span> <span class="type">Numeric</span> <span class="keyword">for</span> <span class="type">int</span> {              <span class="comment-delimiter">/*</span><span class="comment">
-~~~~ ~~~~~~~     ~~~                 *
- |      |         |                  *
- |      |      The type for which    *
- |      |      the trait is impl'd.  *
- |      |                            *
- |   The trait being implemented.    *
- |                                   *
-Declares that we plan to implement   *
-a trait for some type.               */</span>
-
-    <span class="keyword">fn</span> <span class="function-name">zero</span>() -&gt; <span class="type">int</span> { 0 }          <span class="comment-delimiter">/*</span><span class="comment">
-                 ~~~                 *
-                  |                  *
-        Return type of `Self`,       *
-        tailored to this impl.       */</span>
-
-    <span class="keyword">fn</span> <span class="function-name">add</span>(&amp;<span class="keyword">self</span>, <span class="variable-name">other</span>: &amp;<span class="type">int</span>) -&gt; <span class="type">int</span> {
-        *<span class="keyword">self</span> + *other
-    }
-}
-
-<span class="keyword">impl</span> <span class="type">Numeric</span> <span class="keyword">for</span> <span class="type">f64</span> {
-    <span class="keyword">fn</span> <span class="function-name">zero</span>() -&gt; <span class="type">f64</span> { 0.0 }         <span class="comment-delimiter">/*</span><span class="comment">
-                 ~~~                  *
-                  |                   *
-        Return type of `Self`,        *
-        tailored to _this_ impl.      */</span>
-
-    <span class="keyword">fn</span> <span class="function-name">add</span>(&amp;<span class="keyword">self</span>, <span class="variable-name">other</span>: &amp;<span class="type">f64</span>) -&gt; <span class="type">f64</span> {
-        *<span class="keyword">self</span> + *other
-    }
-}
-
-<span class="comment-delimiter">// </span><span class="comment">Exercise 1. Add another impl for the type `u32`.
-</span><span class="comment-delimiter">// </span><span class="comment">Check that it works.
-</span>
-<span class="comment-delimiter">// </span><span class="comment">Exercise 2. Why did we use an intermediate variable to store the
-</span><span class="comment-delimiter">// </span><span class="comment">result of adding each element and the previous sum? (Hint: it has
-</span><span class="comment-delimiter">// </span><span class="comment">to do with the borrowing rules.)
-</span>
-<span class="comment-delimiter">// </span><span class="comment">Exercise 3. How might you modify the trait to avoid this
-</span><span class="comment-delimiter">// </span><span class="comment">intermediate?
-</span><span class="comment-delimiter">//</span><span class="comment">
-</span><span class="comment-delimiter">// </span><span class="comment">Hint i. `&amp;mut`
-</span><span class="comment-delimiter">// </span><span class="comment">Hint ii. `Copy`
-</span></pre>
+</pre>
 
  </body>
 </html>
